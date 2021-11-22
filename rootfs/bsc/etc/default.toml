@@ -1,0 +1,70 @@
+[Eth]
+NetworkId = 56
+NoPruning = false
+NoPrefetch = false
+LightPeers = 100
+UltraLightFraction = 75
+TrieTimeout = 100000000000
+EnablePreimageRecording = false
+EWASMInterpreter = ""
+EVMInterpreter = ""
+SyncMode = "fast"
+DatabaseCache = 4096
+TrieCleanCache = 1024
+TrieDirtyCache = 1024
+
+[Eth.Miner]
+GasFloor = 30000000
+GasCeil = 40000000
+GasPrice = 1000000000
+Recommit = 10000000000
+Noverify = false
+
+[Eth.TxPool]
+Locals = []
+NoLocals = true
+Journal = "transactions.rlp"
+Rejournal = 3600000000000
+PriceLimit = 1000000000
+PriceBump = 10
+AccountSlots = 512
+GlobalSlots = 10000
+AccountQueue = 256
+GlobalQueue = 5000
+Lifetime = 10800000000000
+
+[Eth.GPO]
+Blocks = 20
+Percentile = 60
+OracleThreshold = 20
+Default = 5000000000
+
+[Node]
+IPCPath = "geth.ipc"
+HTTPHost = "0.0.0.0"
+NoUSB = true
+InsecureUnlockAllowed = false
+HTTPPort = 8545
+HTTPVirtualHosts = ["*"]
+HTTPModules = ["eth", "net", "web3"]
+WSPort = 8546
+WSModules = ["net", "web3", "eth"]
+
+[Node.P2P]
+MaxPeers = 30
+NoDiscovery = false
+BootstrapNodes = ["enode://1cc4534b14cfe351ab740a1418ab944a234ca2f702915eadb7e558a02010cb7c5a8c295a3b56bcefa7701c07752acd5539cb13df2aab8ae2d98934d712611443@52.71.43.172:30311","enode://28b1d16562dac280dacaaf45d54516b85bc6c994252a9825c5cc4e080d3e53446d05f63ba495ea7d44d6c316b54cd92b245c5c328c37da24605c4a93a0d099c4@34.246.65.14:30311","enode://5a7b996048d1b0a07683a949662c87c09b55247ce774aeee10bb886892e586e3c604564393292e38ef43c023ee9981e1f8b335766ec4f0f256e57f8640b079d5@35.73.137.11:30311"]
+StaticNodes = ["enode://bcccac7dfbd21bd1dbbb7bf64ef7af6986520091f00320905e5919d12167fc8c94698099946933747ad2ea24745d35ebc980f9ba1475a839c83574d5ccf318d9@34.196.94.250:30311","enode://c6e730d262ee0fe4e747423708c1553798c2d04e6002c3e29dc3cb46ef264f35e982ba1351d74a9cbff7c6da2b268c80bee62f8f27006b375639958cb2c28e26@3.114.158.196:30311","enode://f49aae223b44de74a202d43976e7f7b0394fccef478cb0682f9d5a8ef9174ebbf5e4738cd3ccf83158c18c84f0973563e6b4d66fa5bd107dfb7a06fc6206011a@34.255.168.176:30311","enode://eaa9a4d781fc7f1666bb15b8cb5fd6128ce9b92ab3824294e1fde8074a646d1d94e9f8558f6111a714ff28aed0f06dfb3958212b21ac943904747719c758b4d1@100.25.250.190:30311","enode://e421c47edc33d0d929e755196e92c8e7c26f24a38cc76dd17b0e78c304426e7e6d34e3f4e39f5dae1397c3cfac8238eb45533a62e118b183afd66b652fd1d03a@54.249.78.93:30311","enode://22455eaa4eaf4c12dc2386840a590fdc632ef669f86a8e1adf8d1421ca2c2f69d6cef6ecc8b976f945d1fcbc3c8181edf75494b1ecb28eaf15f8b21413644385@54.217.65.254:30311","enode://7ac95307b00962c6257574892fd4b53b38d6b6814aa1dec044539854ca507f2d2c8fbabfde98c5cbb3d2e86d6e7aaf417cc28ecaf403d24f69a9bccc3f818002@54.248.214.5:30311","enode://28b1d16562dac280dacaaf45d54516b85bc6c994252a9825c5cc4e080d3e53446d05f63ba495ea7d44d6c316b54cd92b245c5c328c37da24605c4a93a0d099c4@52.215.151.117:30311","enode://f8bc270437e414a787d97a54eca14cbd4add54f2a0143a275487548f3915828203ed2cd8ce03b7a1bd7444319a8452c05b0fc9a0746d8d60899a37b9fc655cf6@54.95.201.88:30311","enode://38144f02adbe8817b2b0f241f921491bc612dd8cd603fa9cd3faa31c76697ad5e00297cba38d0a8f594752c56c9a7e84f53d7f71c0b37b5680cea5e732b6b946@34.243.164.24:30311","enode://a44e347bb147875aa93bdce5d3fc637457b91a7ac94df5f0ab4a734aa5b2614d8a43485119e05237bf416bc0b4a6de9c665d84b68aed684fc076d250ba5e4fc0@18.235.240.83:30311","enode://7771ef73c72835f613ad0a41ae9dd4631e9dfcdf606eb1a8a0c8268eb4e0f6eaac4827c47f0409930ff71b80bffd40f5397239013ba57a1bc523331941d745d3@18.180.17.171:30311","enode://9d7f11cdee89f63e7bda30788ff6dc9dee74ef905b14edb5217ebb10aa6d1095bdf6141fd9079d3e555c32db4f67cb68599e40d80e1670f5879a38dc8dcd77cd@54.238.28.14:30311","enode://3125713c9b3c0e358a2a11f17e9bd767df257ec2b853a257b898c3dcd9d5fb151f1f94d33ad64db1d9d605e3bcfebd23c51688da67a46a55de84dce785d27095@54.250.97.129:30311"]
+ListenAddr = ":30311"
+EnableMsgEvents = false
+
+[Node.HTTPTimeouts]
+ReadTimeout = 30000000000
+WriteTimeout = 30000000000
+IdleTimeout = 120000000000
+
+[Node.LogConfig]
+FilePath = "bsc.log"
+MaxBytesSize = 10485760
+Level = "info"
+FileRoot = ""
