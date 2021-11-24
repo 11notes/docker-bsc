@@ -6,7 +6,7 @@ if [ "$1" = "geth" ]; then
     fi
 
     echo "starting bsc ..."
-    set -- "$@" --datadir "/bsc/var" --config "/bsc/etc/default.toml"
+    set -- "$@" --datadir "/bsc/var" --config "/bsc/etc/default.toml" --cache 4096
 fi
 
 exec "$@"
