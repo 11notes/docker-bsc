@@ -6,7 +6,7 @@ if [ "$1" = "geth" ]; then
     fi
 
     echo "starting bsc ..."
-    set -- "$@" --datadir "/bsc/var" --config "/bsc/etc/default.toml" --cache 4096
+    set -- "$@" --datadir "/bsc/var" --config "/bsc/etc/default.toml" --syncmode fast --diffsync --cache 8000 --rpc.allow-unprotected-txs --txlookuplimit 0 # default from binance git
 fi
 
 exec "$@"
