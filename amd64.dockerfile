@@ -31,6 +31,9 @@
 		RUN set -ex; \
 			apk add --update --no-cache \
 				curl \
+                lz4 \
+                tar \
+                wget \
 				shadow;
 
 		RUN set -ex; \
