@@ -1,7 +1,7 @@
 #!/bin/ash
-if [ "$1" = "geth" ]; then
+if [ "$1" = "start" ]; then
     echo "starting bsc ..."
-    set -- "$@" \
+    set -- "geth" \
         --datadir "/bsc/var" \
         --config "/bsc/etc/config.toml"  \
         --diffsync  \
@@ -13,5 +13,19 @@ if [ "$1" = "geth" ]; then
             --ws.api eth,web3 \
             --ws.origins '*'
 fi
+
+if [ "$1" = "prune" ]; then
+    echo "pruning bsc ..."
+    set -- "geth" \
+        snapshot \
+        prune-block \
+        --datadir "/bsc/var" \
+        --config "/bsc/etc/config.toml"  \
+        --block-amount-reserved 9000 \
+        --triesInMemory 32 \
+        --check-snapshot-with-mpt
+fi
+
+
 
 exec "$@"

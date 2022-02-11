@@ -55,4 +55,3 @@
 	RUN set -ex; chmod +x /usr/local/bin/entrypoint.sh
 	USER bsc
 	ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-    CMD ["geth"]
