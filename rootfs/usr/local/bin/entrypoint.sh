@@ -20,12 +20,10 @@ if [ "$1" = "prune" ]; then
         snapshot \
         prune-block \
         --datadir "/bsc/var" \
-        --config "/bsc/etc/config.toml"  \
+        --datadir.ancient "/bsc/var/geth/chaindata/ancient" \
         --block-amount-reserved 9000 \
         --triesInMemory 32 \
         --check-snapshot-with-mpt
 fi
-
-
 
 exec "$@"
