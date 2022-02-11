@@ -1,3 +1,4 @@
+#!/bin/ash
 if [ "$1" = "geth" ]; then
     echo "starting bsc ..."
     set -- "$@" \
@@ -12,3 +13,5 @@ if [ "$1" = "geth" ]; then
             --ws.api eth,web3 \
             --ws.origins '*'
 fi
+
+exec "$@"
