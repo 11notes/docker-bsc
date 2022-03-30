@@ -10,7 +10,7 @@
             cmake \
             g++ \
             git; \
-        git clone https://github.com/binance-chain/bsc.git; \
+        git clone https://github.com/bnb-chain/bsc.git; \
         cd /go/bsc; \
 		git checkout ${bscVersion}; \
         make -j $(nproc);

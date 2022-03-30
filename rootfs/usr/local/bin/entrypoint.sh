@@ -11,7 +11,11 @@ if [ "$1" = "start" ]; then
         --ws \
             --ws.addr 0.0.0.0 \
             --ws.api eth,web3 \
-            --ws.origins '*'
+            --ws.origins '*' \
+        --http \
+            --http.addr 0.0.0.0 \
+            --http.api eth,web3 \
+            --http.corsdomain '*'
 fi
 
 if [ "$1" = "prune" ]; then
@@ -21,7 +25,7 @@ if [ "$1" = "prune" ]; then
         prune-block \
         --datadir "/bsc/var" \
         --datadir.ancient "/bsc/var/geth/chaindata/ancient" \
-        --block-amount-reserved 9000 \
+        --block-amount-reserved 1024 \
         --triesInMemory 32 \
         --check-snapshot-with-mpt
 fi
