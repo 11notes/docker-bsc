@@ -17,23 +17,27 @@ if [ -z "$1" ]; then
             --http.addr 0.0.0.0 \
             --http.api eth,web3 \
             --http.corsdomain '*'
-fi
 
-if [ "$1" = "prune" ]; then
-    echo "pruning bsc ..."
-    set -- "geth" \
-        snapshot \
-        prune-block \
-        --datadir "/bsc/var" \
-        --datadir.ancient "/bsc/var/geth/chaindata/ancient" \
-        --block-amount-reserved 1024
-fi
+    exec "$@"
+else
+    case $1 in
+        "prune")
+            echo "pruning bsc ..."
+            set -- "geth" \
+                snapshot \
+                prune-block \
+                --datadir "/bsc/var" \
+                --datadir.ancient "/bsc/var/geth/chaindata/ancient" \
+                --block-amount-reserved 1024
 
-if [ "$1" = "sync" ]; then
-    BSC_URL="$(curl -f -L -s https://github.com/bnb-chain/bsc-snapshots | grep -Eo 'https?://tf-dex-prod-public-snapshot.s3-accelerate.amazonaws.com\S+?\"' | grep -Eo '[^"]+' | sed -e 's/\&amp;/\&/g')"
-    cd /bsc/var
-    echo "sync bsc ..."
-    set -- "wget" -q -O - $URL | tar -I lz4 -xvf - --strip-components=2
-fi
+            exec "$@"
+        ;;
 
-exec "$@"
+        "sync")
+            echo "sync bsc ..."
+            BSC_URL="$(curl -f -L -s https://github.com/bnb-chain/bsc-snapshots | grep -Eo 'https?://tf-dex-prod-public-snapshot.s3-accelerate.amazonaws.com\S+?\"' | grep -Eo '[^"]+' | sed -e 's/\&amp;/\&/g')"
+            cd /bsc/var
+            exec wget -q -O - $BSC_URL | tar -I lz4 -xvf - --strip-components=2
+        ;;
+    esac
+fi
