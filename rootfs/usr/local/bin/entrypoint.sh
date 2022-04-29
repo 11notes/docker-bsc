@@ -29,4 +29,15 @@ if [ "$1" = "prune" ]; then
         --block-amount-reserved 1024
 fi
 
+if [ "$1" = "sync" ]; then
+    BSC_URL=$(curl -f -L -s https://github.com/bnb-chain/bsc-snapshots | grep -Eo "https?://tf-dex-prod-public-snapshot.s3-accelerate.amazonaws.com\S+?\"")
+    cd /bsc/var
+    echo "sync bsc ..."
+    set -- "wget" \
+        -q \
+        -O \
+        - \
+        $BSC_URL | tar -I lz4 -xvf - --strip-components=2
+fi
+
 exec "$@"
