@@ -1,10 +1,11 @@
 #!/bin/ash
-if [ "$1" = "start" ]; then
+if [ -z "$1" ]; then
     echo "starting bsc ..."
     set -- "geth" \
         --datadir "/bsc/var" \
         --config "/bsc/etc/config.toml"  \
         --diffsync  \
+        --syncmode=snap \
         --cache 16384  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
@@ -25,9 +26,7 @@ if [ "$1" = "prune" ]; then
         prune-block \
         --datadir "/bsc/var" \
         --datadir.ancient "/bsc/var/geth/chaindata/ancient" \
-        --block-amount-reserved 1024 \
-        --triesInMemory 32 \
-        --check-snapshot-with-mpt
+        --block-amount-reserved 1024
 fi
 
 exec "$@"
