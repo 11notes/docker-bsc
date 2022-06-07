@@ -16,7 +16,7 @@
         make -j $(nproc);
 
 # :: Header
-	FROM alpine:3.14
+	FROM alpine:3.16
 	COPY --from=geth /go/bsc/build/bin/ /usr/local/bin
 
 # :: Run
@@ -31,9 +31,6 @@
 		RUN set -ex; \
 			apk add --update --no-cache \
 				curl \
-                lz4 \
-                tar \
-                wget \
 				shadow;
 
 		RUN set -ex; \
