@@ -1,6 +1,6 @@
 # :: Build
 	FROM golang:alpine as geth
-	ENV bscVersion=v1.1.9
+	ENV bscVersion=v1.1.10
 
     RUN set -ex; \
         apk add --update --no-cache \
@@ -24,9 +24,9 @@
 
 	# :: prepare
         RUN set -ex; \
-            mkdir -p /bsc; \
-            mkdir -p /bsc/etc; \
-            mkdir -p /bsc/var;
+            mkdir -p /geth; \
+            mkdir -p /geth/etc; \
+            mkdir -p /geth/var;
 
 		RUN set -ex; \
 			apk add --update --no-cache \
@@ -37,21 +37,25 @@
 				shadow;
 
 		RUN set -ex; \
-			addgroup --gid 1000 -S bsc; \
-			adduser --uid 1000 -D -S -h /bsc -s /sbin/nologin -G bsc bsc;
+			addgroup --gid 1000 -S geth; \
+			adduser --uid 1000 -D -S -h /geth -s /sbin/nologin -G geth geth;
 
     # :: copy root filesystem changes
         COPY ./rootfs /
 
     # :: docker -u 1000:1000 (no root initiative)
         RUN set -ex; \
-            chown -R bsc:bsc \
-				/bsc
+            chown -R geth:geth \
+				/geth
 
 # :: Volumes
-	VOLUME ["/bsc/etc", "/bsc/var"]
+	VOLUME ["/geth/etc", "/geth/var"]
+
+# :: Monitor
+    RUN set -ex; chmod +x /usr/local/bin/healthcheck.sh
+    HEALTHCHECK CMD /usr/local/bin/healthcheck.sh || exit 1
 
 # :: Start
 	RUN set -ex; chmod +x /usr/local/bin/entrypoint.sh
-	USER bsc
+	USER geth
 	ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
