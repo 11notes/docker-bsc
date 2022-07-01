@@ -1,6 +1,6 @@
 # :: Build
 	FROM golang:alpine as geth
-	ENV bscVersion=v1.1.10
+	ENV bscVersion=v1.1.11
 
     RUN set -ex; \
         apk add --update --no-cache \
