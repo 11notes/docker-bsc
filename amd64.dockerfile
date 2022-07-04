@@ -4,6 +4,9 @@
 
     RUN set -ex; \
         apk add --update --no-cache \
+            curl \
+            wget \
+            unzip \
 			build-base \
             linux-headers \
             make \
@@ -15,9 +18,16 @@
 		git checkout ${bscVersion}; \
         make -j $(nproc);
 
+    RUN set -ex; \
+        mkdir -p /go/bsc/mainnet; cd /go/bsc/mainnet; \
+        wget https://github.com/bnb-chain/bsc/releases/download/${bscVersion}/mainnet.zip; \
+        unzip mainnet.zip;
+        
+
 # :: Header
 	FROM alpine:3.16
 	COPY --from=geth /go/bsc/build/bin/ /usr/local/bin
+    COPY --from=geth /go/bsc/mainnet/ /geth/etc
 
 # :: Run
 	USER root
