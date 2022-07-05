@@ -3,6 +3,7 @@ if [ -z "$1" ]; then
     set -- "geth" \
         --datadir "/geth/var" \
         --config "/geth/etc/config.toml"  \
+        --maxpeers 200 \
         --diffsync  \
         --syncmode=snap \
         --cache 16384  \
@@ -10,12 +11,13 @@ if [ -z "$1" ]; then
         --txlookuplimit 0 \
         --ws \
             --ws.addr 0.0.0.0 \
-            --ws.api eth,web3,txpool \
+            --ws.api eth,net,web3 \
             --ws.origins '*' \
         --http \
             --http.addr 0.0.0.0 \
-            --http.api eth,web3,txpool \
-            --http.corsdomain '*'
+            --http.api eth,net,web3 \
+            --http.corsdomain '*' \
+            --http.vhosts '*'
 
     exec "$@"
 else

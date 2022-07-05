@@ -21,7 +21,9 @@
     RUN set -ex; \
         mkdir -p /go/bsc/mainnet; cd /go/bsc/mainnet; \
         wget https://github.com/bnb-chain/bsc/releases/download/${bscVersion}/mainnet.zip; \
-        unzip mainnet.zip;
+        unzip mainnet.zip; \
+        rm mainnet.zip;
+        
         
 
 # :: Header
@@ -35,7 +37,6 @@
 	# :: prepare
         RUN set -ex; \
             mkdir -p /geth; \
-            mkdir -p /geth/etc; \
             mkdir -p /geth/var;
 
 		RUN set -ex; \
