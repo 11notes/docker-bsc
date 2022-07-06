@@ -3,10 +3,9 @@ if [ -z "$1" ]; then
     set -- "geth" \
         --datadir "/geth/var" \
         --config "/geth/etc/config.toml"  \
-        --maxpeers 200 \
         --diffsync  \
         --syncmode=snap \
-        --cache 16384  \
+        --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
         --ws \
