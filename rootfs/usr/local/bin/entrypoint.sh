@@ -31,5 +31,9 @@ else
 
             exec "$@"
         ;;
+
+        *)
+            exec "$@"
+        ;;
     esac
 fi
