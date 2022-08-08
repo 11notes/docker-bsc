@@ -4,17 +4,21 @@ if [ -z "$1" ]; then
         --datadir "/geth/var" \
         --config "/geth/etc/config.toml"  \
         --diffsync  \
-        --syncmode=snap \
+        --syncmode full \
+        --persistdiff \
+        --enabletrustprotocol \
+        --disablesnapprotocol \
+        --disablediffprotocol \
         --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
         --ws \
             --ws.addr 0.0.0.0 \
-            --ws.api eth,net,web3 \
+            --ws.api net,web3,eth,txpool \
             --ws.origins '*' \
         --http \
             --http.addr 0.0.0.0 \
-            --http.api eth,net,web3 \
+            --http.api net,web3,eth,txpool \
             --http.corsdomain '*' \
             --http.vhosts '*'
 
@@ -24,11 +28,10 @@ else
         "prune")
             set -- "geth" \
                 snapshot \
-                prune-block \
+                prune-state \
                 --datadir "/geth/var" \
-                --datadir.ancient "/geth/var/geth/chaindata/ancient" \
-                --block-amount-reserved 1024
-
+                --datadir.ancient "/geth/var/geth/chaindata/ancient"
+                
             exec "$@"
         ;;
 
