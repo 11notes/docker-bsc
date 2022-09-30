@@ -3,7 +3,7 @@ if [ -z "$1" ]; then
     set -- "geth" \
         --datadir "/geth/var" \
         --config "/geth/etc/config.toml"  \
-        --diffsync  \
+        --diffsync true  \
         --syncmode full \
         --persistdiff \
         --enabletrustprotocol \
@@ -12,6 +12,9 @@ if [ -z "$1" ]; then
         --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
+        --tries-verify-mode none \
+        --pruneancient true \
+        --diffblock 5000 \
         --ws \
             --ws.addr 0.0.0.0 \
             --ws.api net,web3,eth,txpool \
