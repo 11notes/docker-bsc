@@ -12,8 +12,6 @@ if [ -z "$1" ]; then
         --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
-        --tries-verify-mode none \
-        --pruneancient true \
         --diffblock 5000 \
         --ws \
             --ws.addr 0.0.0.0 \
