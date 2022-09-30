@@ -31,7 +31,7 @@ else
                 prune-state \
                 --datadir "/geth/var" \
                 --datadir.ancient "/geth/var/geth/chaindata/ancient"
-                
+
             exec "$@"
         ;;
 
