@@ -12,7 +12,6 @@ if [ -z "$1" ]; then
         --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
-        --diffblock 5000 \
         --ws \
             --ws.addr 0.0.0.0 \
             --ws.api net,web3,eth,txpool \
@@ -21,7 +20,8 @@ if [ -z "$1" ]; then
             --http.addr 0.0.0.0 \
             --http.api net,web3,eth,txpool \
             --http.corsdomain '*' \
-            --http.vhosts '*'
+            --http.vhosts '*' \
+        --log.json
 
     exec "$@"
 else
