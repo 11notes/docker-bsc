@@ -3,7 +3,7 @@ if [ -z "$1" ]; then
     set -- "geth" \
         --datadir "/geth/var" \
         --config "/geth/etc/config.toml"  \
-        --diffsync true  \
+        --diffsync  \
         --syncmode full \
         --persistdiff \
         --enabletrustprotocol \
@@ -12,6 +12,7 @@ if [ -z "$1" ]; then
         --cache 65536  \
         --rpc.allow-unprotected-txs  \
         --txlookuplimit 0 \
+        --pruneancient \
         --ws \
             --ws.addr 0.0.0.0 \
             --ws.api net,web3,eth,txpool \
@@ -20,24 +21,7 @@ if [ -z "$1" ]; then
             --http.addr 0.0.0.0 \
             --http.api net,web3,eth,txpool \
             --http.corsdomain '*' \
-            --http.vhosts '*' \
-        --log.json
-
-    exec "$@"
-else
-    case $1 in
-        "prune")
-            set -- "geth" \
-                snapshot \
-                prune-state \
-                --datadir "/geth/var" \
-                --datadir.ancient "/geth/var/geth/chaindata/ancient"
-
-            exec "$@"
-        ;;
-
-        *)
-            exec "$@"
-        ;;
-    esac
+            --http.vhosts '*'
 fi
+
+exec "$@"
