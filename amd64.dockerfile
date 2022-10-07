@@ -1,6 +1,6 @@
 # :: Build
 	FROM golang:alpine as geth
-	ENV bscVersion=v1.1.14
+	ENV checkout=v1.1.15
 
     RUN set -ex; \
         apk add --update --no-cache \
@@ -15,12 +15,12 @@
             git; \
         git clone https://github.com/bnb-chain/bsc.git; \
         cd /go/bsc; \
-		git checkout ${bscVersion}; \
+		git checkout ${checkout}; \
         make -j $(nproc);
 
     RUN set -ex; \
         mkdir -p /go/bsc/mainnet; cd /go/bsc/mainnet; \
-        wget https://github.com/bnb-chain/bsc/releases/download/${bscVersion}/mainnet.zip; \
+        wget https://github.com/bnb-chain/bsc/releases/download/${checkout}/mainnet.zip; \
         unzip mainnet.zip; \
         rm mainnet.zip;
         
@@ -37,6 +37,7 @@
 	# :: prepare
         RUN set -ex; \
             mkdir -p /geth; \
+            mkdir -p /geth/etc; \
             mkdir -p /geth/var;
 
 		RUN set -ex; \
