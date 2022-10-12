@@ -20,7 +20,6 @@ if [ -z "$1" ]; then
             --http.corsdomain '*' \
             --http.vhosts '*'
         --maxpeers 512 \
-        --verbosity 1 \
         --log.json
 fi
 
