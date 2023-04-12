@@ -27,7 +27,7 @@
         
 
 # :: Header
-	FROM alpine:3.16
+	FROM alpine:latest
 	COPY --from=geth /go/bsc/build/bin/ /usr/local/bin
     COPY --from=geth /go/bsc/mainnet/ /geth/etc
 
