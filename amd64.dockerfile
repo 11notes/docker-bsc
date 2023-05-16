@@ -40,29 +40,30 @@
     mkdir -p /geth/var;
 
   RUN set -ex; \
-  apk add --update --no-cache \
-    curl;
+    apk add --update --no-cache \
+      libstdc++ \
+      curl;
 
   RUN set -ex; \
     addgroup --gid 1000 -S geth; \
     adduser --uid 1000 -D -S -h /geth -s /sbin/nologin -G geth geth;
 
   # :: copy root filesystem changes
-  COPY ./rootfs /
-  RUN set -ex; \
-    chmod +x -R /usr/local/bin
+    COPY ./rootfs /
+    RUN set -ex; \
+      chmod +x -R /usr/local/bin
 
   # :: docker -u 1000:1000 (no root initiative)
-  RUN set -ex; \
-    chown -R geth:geth \
-    /geth
+    RUN set -ex; \
+      chown -R geth:geth \
+        /geth
 
 # :: Volumes
-VOLUME ["/geth/etc", "/geth/var"]
+  VOLUME ["/geth/etc", "/geth/var"]
 
 # :: Monitor
-HEALTHCHECK CMD /usr/local/bin/healthcheck.sh || exit 1
+  HEALTHCHECK CMD /usr/local/bin/healthcheck.sh || exit 1
 
 # :: Start
-USER geth
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+  USER geth
+  ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
