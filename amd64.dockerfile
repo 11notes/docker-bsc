@@ -1,6 +1,6 @@
 # :: Build
   FROM golang:alpine as build
-  ENV checkout=v1.2.3
+  ENV checkout=v1.1.23
 
   RUN set -ex; \
     apk add --update --no-cache \
@@ -41,7 +41,6 @@
 
   RUN set -ex; \
     apk add --update --no-cache \
-      libstdc++ \
       curl;
 
   RUN set -ex; \
