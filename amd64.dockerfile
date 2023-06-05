@@ -15,7 +15,15 @@
       git; \
     git clone https://github.com/bnb-chain/bsc.git; \
     cd /go/bsc; \
-    git checkout ${checkout}; \
+    git checkout ${checkout};
+
+  # fix security
+  # https://nvd.nist.gov/vuln/detail/cve-2022-41723
+  RUN set -ex; \
+    sed -i 's#golang.org/x/net v0.[0-6]\+.[0-6]\+#golang.org/x/net v0.7.0#g' /go/bsc/go.mod;
+
+  RUN set -ex; \
+    cd /go/bsc; \
     make -j $(nproc);
 
   RUN set -ex; \
