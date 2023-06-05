@@ -15,12 +15,13 @@
       git; \
     git clone https://github.com/bnb-chain/bsc.git; \
     cd /go/bsc; \
+    go get -u all; \
     git checkout ${checkout};
 
   # fix security
   # https://nvd.nist.gov/vuln/detail/cve-2022-41723
   RUN set -ex; \
-    sed -i 's#golang.org/x/net v0.[0-6]\+.[0-6]\+#golang.org/x/net v0.7.0#g' /go/bsc/go.mod; \
+    sed -i 's#golang.org/x/net v0.[0-6]\+.[0-9]\+#golang.org/x/net v0.7.0#g' /go/bsc/go.mod; \
     cd /go/bsc; \
     go mod tidy;
 
@@ -48,10 +49,10 @@
       apk upgrade;
 
   # :: prepare image
-  RUN set -ex; \
-    mkdir -p /geth; \
-    mkdir -p /geth/etc; \
-    mkdir -p /geth/var;
+    RUN set -ex; \
+      mkdir -p /geth; \
+      mkdir -p /geth/etc; \
+      mkdir -p /geth/var;
 
   # :: copy root filesystem changes and add execution rights to init scripts
     COPY ./rootfs /

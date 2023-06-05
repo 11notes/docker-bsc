@@ -47,7 +47,7 @@ docker run --name bsc \
         --metrics.influxdb.endpoint "http://127.0.0.1:8086" \
         --metrics.influxdb.token "**********************************************" \
         --metrics.influxdb.organization "Binance" \
-        --metrics.influxdb.bucket "BSC \
+        --metrics.influxdb.bucket "bsc" \
         --metrics.influxdb.tags "host=bsc"
 
 # stop container
