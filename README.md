@@ -1,6 +1,5 @@
 # Alpine :: Binance Smart Chain
-
-Run a Binance Smart Chain (BSC) node based on Alpine Linux. Small, lightweight, secure and fast.
+Run a Binance Smart Chain (BSC) node based on Alpine Linux. Small, lightweight, secure and fast 🏔️
 
 ## Volumes
 * **/geth/etc** - Directory of config.toml
