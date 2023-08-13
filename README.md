@@ -59,13 +59,14 @@ docker stop -t 600 bsc
 | `user` | docker | user docker |
 | `uid` | 1000 | user id 1000 |
 | `gid` | 1000 | group id 1000 |
+| `home` | /geth | home directory of user docker |
 
 ## Parent
 * [11notes/alpine:stable](https://github.com/11notes/docker-alpine)
 
 ## Built with
 * [Binance Smart Chain (BSC)](https://github.com/bnb-chain/bsc)
-* [Alpine Linux](https://alpinelinux.org/)
+* [Alpine Linux](https://alpinelinux.org)
 
 ## Tips
 * Increase cache as much as you can (64GB+ recommended)

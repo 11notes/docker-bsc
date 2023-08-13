@@ -1,6 +1,6 @@
 # :: Build
   FROM golang:alpine as build
-  ENV checkout=v1.1.23
+  ENV APP_VERSION=v1.2.10
 
   RUN set -ex; \
     apk add --update --no-cache \
@@ -15,7 +15,7 @@
       git; \
     git clone https://github.com/bnb-chain/bsc.git; \
     cd /go/bsc; \
-    git checkout ${checkout};
+    git checkout ${APP_VERSION};
 
   # fix security
   # https://nvd.nist.gov/vuln/detail/CVE-2022-41723
@@ -36,22 +36,18 @@
     
 # :: Header
   FROM 11notes/alpine:stable
+  ENV APP_ROOT=/geth
   COPY --from=build /go/bsc/build/bin/ /usr/local/bin
-  COPY --from=build /go/bsc/mainnet/ /geth/etc
+  COPY --from=build /go/bsc/mainnet/ ${APP_ROOT}/etc
 
 # :: Run
   USER root
 
-  # :: update image
-    RUN set -ex; \
-      apk update; \
-      apk upgrade;
-
   # :: prepare image
     RUN set -ex; \
-      mkdir -p /geth; \
-      mkdir -p /geth/etc; \
-      mkdir -p /geth/var;
+      mkdir -p ${APP_ROOT}; \
+      mkdir -p ${APP_ROOT}/etc; \
+      mkdir -p ${APP_ROOT}/var;
 
   # :: copy root filesystem changes and add execution rights to init scripts
     COPY ./rootfs /
@@ -60,12 +56,16 @@
 
   # :: change home path for existing user and set correct permission
     RUN set -ex; \
-      usermod -d /geth docker; \
+      usermod -d ${APP_ROOT} docker; \
       chown -R 1000:1000 \
-        /geth;
+        ${APP_ROOT};
+
+  # :: update image
+    RUN set -ex; \
+      apk --no-cache upgrade;
 
 # :: Volumes
-  VOLUME ["/geth/etc", "/geth/var"]
+  VOLUME ["${APP_ROOT}/etc", "${APP_ROOT}/var"]
 
 # :: Monitor
   HEALTHCHECK CMD /usr/local/bin/healthcheck.sh || exit 1
