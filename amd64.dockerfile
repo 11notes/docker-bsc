@@ -1,5 +1,5 @@
 # :: Build
-  FROM golang:alpine as build
+  FROM golang:1.19.12-alpine3.18 as build
   ENV APP_VERSION=v1.2.10
 
   RUN set -ex; \
@@ -30,7 +30,7 @@
 
   RUN set -ex; \
     mkdir -p /go/bsc/mainnet; cd /go/bsc/mainnet; \
-    wget https://github.com/bnb-chain/bsc/releases/download/${checkout}/mainnet.zip; \
+    wget https://github.com/bnb-chain/bsc/releases/download/${APP_VERSION}/mainnet.zip; \
     unzip mainnet.zip; \
     rm mainnet.zip;
     
