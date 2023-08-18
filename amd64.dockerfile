@@ -51,7 +51,8 @@
     RUN set -ex; \
       mkdir -p ${APP_ROOT}; \
       mkdir -p ${APP_ROOT}/etc; \
-      mkdir -p ${APP_ROOT}/var;
+      mkdir -p ${APP_ROOT}/var; \
+      apk --no-cache add libstdc++;
 
   # :: copy root filesystem changes and add execution rights to init scripts
     COPY ./rootfs /
