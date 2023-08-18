@@ -1,6 +1,8 @@
 # :: Build
   FROM golang:1.19.12-alpine3.18 as build
   ENV APP_VERSION=v1.2.10
+  ENV CGO_CFLAGS="-O -D__BLST_PORTABLE__"
+  ENV CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
 
   RUN set -ex; \
     apk add --update --no-cache \
