@@ -1,6 +1,6 @@
 # :: Build
   FROM golang:1.19.12-alpine3.18 as build
-  ENV APP_VERSION=v1.2.10
+  ENV APP_VERSION=v1.2.12
   ENV CGO_CFLAGS="-O -D__BLST_PORTABLE__"
   ENV CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
 
@@ -54,7 +54,11 @@
       mkdir -p ${APP_ROOT}; \
       mkdir -p ${APP_ROOT}/etc; \
       mkdir -p ${APP_ROOT}/var; \
-      apk --no-cache add libstdc++;
+      apk --no-cache add \
+        zstd \
+        wget \
+        tar \
+        libstdc++;
 
   # :: copy root filesystem changes and add execution rights to init scripts
     COPY ./rootfs /
