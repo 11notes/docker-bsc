@@ -58,7 +58,8 @@
         zstd \
         wget \
         tar \
-        libstdc++;
+        libstdc++; \
+      apk --no-cache upgrade;
 
   # :: copy root filesystem changes and add execution rights to init scripts
     COPY ./rootfs /
@@ -70,10 +71,6 @@
       usermod -d ${APP_ROOT} docker; \
       chown -R 1000:1000 \
         ${APP_ROOT};
-
-  # :: update image
-    RUN set -ex; \
-      apk --no-cache upgrade;
 
 # :: Volumes
   VOLUME ["${APP_ROOT}/etc", "${APP_ROOT}/var"]
