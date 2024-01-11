@@ -20,8 +20,9 @@
         --http.api net,web3,eth,txpool \
         --http.corsdomain '*' \
         --http.vhosts '*' \
-      --log.format=json \
-      --nat extip:$(curl -s ip.anon.global)
+      --maxpeers 64 \
+      --nat extip:$(curl -s ip.anon.global) \
+      --log.format=json
   else
     case "${1}" in
       init)
