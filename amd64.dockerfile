@@ -28,13 +28,12 @@
     git checkout ${APP_VERSION};
 
   # fix security
-  # https://nvd.nist.gov/vuln/detail/CVE-2023-39533
-  # https://nvd.nist.gov/vuln/detail/CVE-2020-8565
-  # https://nvd.nist.gov/vuln/detail/CVE-2023-3978
-  RUN set -ex; \
-    sed -i 's#golang.org/x/net v0.7.0#golang.org/x/net v0.13.0#g' /go/bsc/go.mod; \
-    sed -i 's#github.com/libp2p/go-libp2p v0.26.2#github.com/libp2p/go-libp2p v0.27.8#g' /go/bsc/go.mod; \
-    sed -i 's#k8s.io/client-go v0.18.3#k8s.io/client-go v0.20.0-alpha.2#g' /go/bsc/go.mod; \
+  RUN set -ex; \    
+    sed -i 's#google.golang.org/grpc v1.53.0#google.golang.org/grpc v1.56.3#g' /go/bsc/go.mod; \    
+    sed -i 's#github.com/consensys/gnark-crypto v0.10.0#github.com/consensys/gnark-crypto v0.12.0#g' /go/bsc/go.mod; \
+    sed -i 's#golang.org/x/net v0.10.0#golang.org/x/net v0.17.0#g' /go/bsc/go.mod; \
+    sed -i 's#golang.org/x/crypto v0.12.0#golang.org/x/crypto v0.17.0#g' /go/bsc/go.mod; \
+    sed -i 's#github.com/quic-go/quic-go v0.33.0#github.com/quic-go/quic-go v0.37.7#g' /go/bsc/go.mod; \
     cd /go/bsc; \
     go mod tidy;
 

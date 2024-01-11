@@ -20,7 +20,8 @@
         --http.api net,web3,eth,txpool \
         --http.corsdomain '*' \
         --http.vhosts '*' \
-      --log.format=json
+      --log.format=json \
+      --nat extip:$(curl -s ip.anon.global)
   else
     case "${1}" in
       init)

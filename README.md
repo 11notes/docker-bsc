@@ -34,7 +34,8 @@ docker run --name bsc \
       --http.api net,web3,eth,txpool \
       --http.corsdomain '*' \
       --http.vhosts '*' \
-    --log.format=json
+    --log.format=json \
+    --nat extip:$(curl -s ip.anon.global) \
     --metrics \
       --metrics.expensive \
       --metrics.influxdbv2 \
