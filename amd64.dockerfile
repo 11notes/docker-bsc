@@ -1,6 +1,14 @@
+# :: Util
+  FROM alpine as util
+
+  RUN set -ex; \
+    apk add --no-cache \
+      git; \
+    git clone https://github.com/11notes/util.git;
+
 # :: Build
-  FROM golang:1.19.12-alpine3.18 as build
-  ENV APP_VERSION=v1.2.12
+  FROM golang:1.20-alpine3.19 as build
+  ENV APP_VERSION=v1.3.7
   ENV CGO_CFLAGS="-O -D__BLST_PORTABLE__"
   ENV CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
 
@@ -43,6 +51,7 @@
 # :: Header
   FROM 11notes/alpine:stable
   ENV APP_ROOT=/geth
+  COPY --from=util /util/linux/shell/log-json /usr/local/bin
   COPY --from=build /go/bsc/build/bin/ /usr/local/bin
   COPY --from=build /go/bsc/mainnet/ ${APP_ROOT}/etc
 
