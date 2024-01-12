@@ -4,7 +4,7 @@
     init)
       log-json info "download latest snapshot from 48club"
       cd ${APP_ROOT}/var
-      wget -q -O - $(curl -f -L -s c | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
+      wget -q -O - $(curl -f -L -s https://github.com/48Club/bsc-snapshots | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
       CMD=""
     ;;
   esac
