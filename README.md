@@ -16,34 +16,35 @@ docker run --name bsc \
   -v .../var:/geth/var \
   -d 11notes/bsc:[tag] \
     geth \
-    --datadir "/geth/var" \
-    --config "/geth/etc/config.toml"  \
-    --cache 66560  \
-    --history.transactions=0 \
-    --syncmode=full \
-    --tries-verify-mode=local \
-    --pruneancient \
-    --db.engine=pebble \
-    --state.scheme=path \
-    --ws \
-      --ws.addr 0.0.0.0 \
-      --ws.api net,web3,eth,txpool \
-      --ws.origins '*' \
-    --http \
-      --http.addr 0.0.0.0 \
-      --http.api net,web3,eth,txpool \
-      --http.corsdomain '*' \
-      --http.vhosts '*' \
-    --log.format=json \
-    --nat extip:$(curl -s ip.anon.global) \
-    --metrics \
-      --metrics.expensive \
-      --metrics.influxdbv2 \
-      --metrics.influxdb.endpoint "http://127.0.0.1:8086" \
-      --metrics.influxdb.token "**********************************************" \
-      --metrics.influxdb.organization "Binance" \
-      --metrics.influxdb.bucket "bsc" \
-      --metrics.influxdb.tags "host=bsc"
+      --datadir "/geth/var" \
+      --config "/geth/etc/config.toml"  \
+      --cache 66560  \
+      --history.transactions=0 \
+      --syncmode=full \
+      --tries-verify-mode=local \
+      --pruneancient \
+      --db.engine=pebble \
+      --state.scheme=path \
+      --ws \
+        --ws.addr 0.0.0.0 \
+        --ws.api net,web3,eth,txpool \
+        --ws.origins '*' \
+      --http \
+        --http.addr 0.0.0.0 \
+        --http.api net,web3,eth,txpool \
+        --http.corsdomain '*' \
+        --http.vhosts '*' \
+      --maxpeers 64 \
+      --nat extip:$(curl -sL ip.anon.global) \
+      --log.format=json
+      --metrics \
+        --metrics.expensive \
+        --metrics.influxdbv2 \
+        --metrics.influxdb.endpoint "http://127.0.0.1:8086" \
+        --metrics.influxdb.token "**********************************************" \
+        --metrics.influxdb.organization "Binance" \
+        --metrics.influxdb.bucket "bsc" \
+        --metrics.influxdb.tags "host=bsc"
 ```
 
 ## Defaults
@@ -56,6 +57,11 @@ docker run --name bsc \
 | `engine` | pebble | Go supported storage backend |
 | `api` | http://${IP}:8545 | HTTP endpoint |
 | `api` | http://${IP}:8546 | WS endpoint |
+
+## Environment
+| Parameter | Value | Default |
+| --- | --- | --- |
+| `TZ` | [Time Zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) | null |
 
 ## Parent image
 * [11notes/alpine:stable](https://github.com/11notes/docker-alpine)

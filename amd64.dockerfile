@@ -27,6 +27,16 @@
     cd /go/bsc; \
     git checkout ${APP_VERSION};
 
+  # fix security
+  RUN set -ex; \    
+    sed -i 's#google.golang.org/grpc v1.51.0#google.golang.org/grpc v1.56.3#g' /go/bsc/go.mod; \    
+    sed -i 's#github.com/consensys/gnark-crypto v0.10.0#github.com/consensys/gnark-crypto v0.12.0#g' /go/bsc/go.mod; \
+    sed -i 's#golang.org/x/net v0.10.0#golang.org/x/net v0.17.0#g' /go/bsc/go.mod; \
+    sed -i 's#golang.org/x/crypto v0.12.0#golang.org/x/crypto v0.17.0#g' /go/bsc/go.mod; \
+    cd /go/bsc; \
+    go mod tidy; \
+    make -j $(nproc);
+
   RUN set -ex; \
     cd /go/bsc; \
     make -j $(nproc);

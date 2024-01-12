@@ -1,5 +1,15 @@
 #!/bin/ash
-  if [ -z "${1}" ]; then
+  CMD="${1}"
+  case "${CMD}" in
+    init)
+      log-json info "download latest snapshot from 48club"
+      cd ${APP_ROOT}/var
+      wget -q -O - $(curl -f -L -s c | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
+      CMD=""
+    ;;
+  esac
+
+  if [ -z "${CMD}" ]; then
     log-json info "starting default geth configuration"
     set -- "geth" \
       --datadir "${APP_ROOT}/var" \
@@ -21,16 +31,8 @@
         --http.corsdomain '*' \
         --http.vhosts '*' \
       --maxpeers 64 \
-      --nat extip:$(curl -s ip.anon.global) \
+      --nat extip:$(curl -sL ip.anon.global) \
       --log.format=json
-  else
-    case "${1}" in
-      init)
-        log-json info "download latest snapshot from 48club"
-        cd ${APP_ROOT}/var
-        wget -q -O - $(curl -f -L -s https://github.com/48Club/bsc-snapshots | grep -Eo 'https://snapshots.48.club/geth.full.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
-      ;;
-    esac
   fi
 
   exec "$@"
