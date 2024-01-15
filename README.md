@@ -64,7 +64,7 @@ docker run --name bsc \
 | `TZ` | [Time Zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) | null |
 
 ## Parent image
-* [11notes/alpine:stable](https://github.com/11notes/docker-alpine)
+* [11notes/alpine:stable](https://hub.docker.com/r/11notes/alpine)
 
 ## Built with (thanks to)
 * [Binance Smart Chain (BSC)](https://github.com/bnb-chain/bsc)

@@ -7,6 +7,10 @@
       wget -q -O - $(curl -f -L -s https://github.com/48Club/bsc-snapshots | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
       CMD=""
     ;;
+
+    status)
+      geth console --preload ${APP_ROOT}/lib/js/status.js
+    ;;
   esac
 
   if [ -z "${CMD}" ]; then
