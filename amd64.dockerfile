@@ -33,7 +33,6 @@
     sed -i 's#github.com/consensys/gnark-crypto .*$#github.com/consensys/gnark-crypto v0.12.1#g' /go/bsc/go.mod; \
     sed -i 's#golang.org/x/net .*$#golang.org/x/net v0.17.0#g' /go/bsc/go.mod; \
     sed -i 's#golang.org/x/crypto .*$#golang.org/x/crypto v0.17.0#g' /go/bsc/go.mod; \
-    sed -i 's#github.com/quic-go/quic-go .*$#github.com/quic-go/quic-go v0.37.7#g' /go/bsc/go.mod; \
     cd /go/bsc; \
     go mod tidy; \
     make -j $(nproc);
