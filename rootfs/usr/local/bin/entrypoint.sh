@@ -14,7 +14,6 @@
     set -- "geth" \
       --datadir "${APP_ROOT}/var" \
       --config "${APP_ROOT}/etc/config.toml"  \
-      --cache 66560  \
       --history.transactions=0 \
       --syncmode=full \
       --tries-verify-mode=local \
