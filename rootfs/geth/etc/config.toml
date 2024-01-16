@@ -2,6 +2,7 @@
 NetworkId = 56
 LightPeers = 100
 TrieTimeout = 150000000000
+StateScheme = "path"
 
 [Eth.Miner]
 GasCeil = 140000000
