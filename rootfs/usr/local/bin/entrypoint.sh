@@ -2,10 +2,14 @@
   CMD="${1}"
   case "${CMD}" in
     init)
-      log-json info "download latest snapshot from 48club"
-      cd ${APP_ROOT}/var
-      wget -q -O - $(curl -f -L -s https://github.com/48Club/bsc-snapshots | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
-      CMD=""
+      if [ -z "$(ls -A ${APP_ROOT}/var)" ]; then
+        log-json info "download latest snapshot from 48club"
+        cd ${APP_ROOT}/var
+        wget -q -O - $(curl -f -L -s https://github.com/48Club/bsc-snapshots | grep -Eo 'https://snapshots.48.club/geth.pbss.\S+.tar.zst') | zstd -cd | tar -xvf - --strip-components=2
+        CMD=""
+      else
+        log-json error "can't download snapshot, directory [${APP_ROOT}/var] not empty!"
+      fi
     ;;
 
     status)
