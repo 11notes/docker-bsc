@@ -4,7 +4,7 @@
 Run Binance Smart Chain based on Alpine Linux. Small, lightweight, secure and fast 🏔️
 
 ## Description
-With this image you can run your own BSC node. Easy to use, easy to deploy. You can either use the run example below or use the default configuration. Works on any CPU.
+With this image you can run your own BSC node. Easy to use, easy to deploy. You can either use the run example below or use the default configuration. Works on any CPU. Includes CVE fixes which the official repo doesn't address.
 
 ## Volumes
 * **/geth/etc** - Directory of config.toml
@@ -73,5 +73,8 @@ docker run --name bsc \
 ## Tips
 * Only use rootless container runtime (podman, rootless docker)
 * Don't bind to ports < 1024 (requires root), use NAT/reverse proxy (haproxy, traefik, nginx)
-* Increase cache as much as you can (64GB+ recommended)
+* Increase cache<sup>1</sup> as much as you can (64GB+ recommended)
 * Don't kill container, stop gracefully with enough time to sync RAM to disk
+
+## Disclaimers
+* <sup>1</sup> There is currently a bug in pebble that you can’t set more than 4GB RAM on an amd64 system. Cache is currently disabled in the active branch.
